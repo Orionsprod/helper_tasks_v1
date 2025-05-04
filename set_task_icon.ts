@@ -1,8 +1,8 @@
 import { NOTION_TOKEN, DEBUG } from "./config.ts";
 
-const VIDEO_IMAGE = "https://em-content.zobj.net/source/apple/419/television_1f4fa.png";
-const STATIC_IMAGE = "https://em-content.zobj.net/source/apple/419/framed-picture_1f5bc-fe0f.png";
-const DEFAULT_IMAGE = "https://emoji.iamrohit.in/img-apple/1f3af.png";
+const VIDEO_IMAGE = "https://em-content.zobj.net/source/apple/118/white-heavy-check-mark_2705.png";
+const STATIC_IMAGE = "https://em-content.zobj.net/source/apple/118/white-heavy-check-mark_2705.png";
+const DEFAULT_IMAGE = "https://em-content.zobj.net/source/apple/118/white-heavy-check-mark_2705.png";
 
 export async function setProjectIconFromTitle(pageId: string, title: string): Promise<void> {
   try {
