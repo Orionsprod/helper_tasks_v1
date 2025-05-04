@@ -2,7 +2,7 @@ import { NOTION_TOKEN, DEBUG } from "./config.ts";
 
 const DEFAULT_IMAGE = "https://em-content.zobj.net/source/apple/118/white-heavy-check-mark_2705.png";
 
-export async function setProjectIcon(pageId: string): Promise<void> {
+export async function setProjectIcon(pageId: string, retry = 0): Promise<void> {
   try {
     if (DEBUG) console.log("📌 Setting default project icon...");
 
@@ -20,6 +20,12 @@ export async function setProjectIcon(pageId: string): Promise<void> {
         }
       })
     });
+
+    if (res.status === 409 && retry < 1) {
+      if (DEBUG) console.warn("⚠️ Conflict occurred while saving icon. Retrying...");
+      await new Promise(resolve => setTimeout(resolve, 500)); // wait 500ms
+      return await setProjectIcon(pageId, retry + 1);
+    }
 
     if (!res.ok) {
       const errText = await res.text();
