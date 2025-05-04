@@ -1,5 +1,5 @@
 import { DEBUG } from "./config.ts";
-import { setProjectIconFromTitle } from "./set_project_icon.ts";
+import { setProjectIconFromTitle } from "./set_task_icon.ts";
 
 Deno.serve(async (req) => {
   try {
