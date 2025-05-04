@@ -13,7 +13,7 @@ Deno.serve(async (req) => {
 
     if (DEBUG) console.log("📩 Webhook received for page ID:", pageId);
 
-    await setProjectIconFromTitle(pageId, fullTitle);
+    await setProjectIconFromTitle(pageId);
 
     return new Response("✅ Icon updated, and Notion update is complete", { status: 200 });
   } catch (e) {
