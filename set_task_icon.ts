@@ -1,23 +1,10 @@
 import { NOTION_TOKEN, DEBUG } from "./config.ts";
 
-const VIDEO_IMAGE = "https://em-content.zobj.net/source/apple/118/white-heavy-check-mark_2705.png";
-const STATIC_IMAGE = "https://em-content.zobj.net/source/apple/118/white-heavy-check-mark_2705.png";
 const DEFAULT_IMAGE = "https://em-content.zobj.net/source/apple/118/white-heavy-check-mark_2705.png";
 
-export async function setProjectIconFromTitle(pageId: string, title: string): Promise<void> {
+export async function setProjectIcon(pageId: string): Promise<void> {
   try {
-    const lower = title.toLowerCase();
-    let imageUrl = DEFAULT_IMAGE;
-
-    if (lower.includes("video")) {
-      imageUrl = VIDEO_IMAGE;
-      if (DEBUG) console.log("🎬 'video' detected in title — setting VIDEO_IMAGE.");
-    } else if (lower.includes("image")) {
-      imageUrl = STATIC_IMAGE;
-      if (DEBUG) console.log("🖼️ 'image' detected in title — setting STATIC_IMAGE.");
-    } else {
-      if (DEBUG) console.log("📄 No keyword match — using DEFAULT_IMAGE.");
-    }
+    if (DEBUG) console.log("📌 Setting default project icon...");
 
     const res = await fetch(`https://api.notion.com/v1/pages/${pageId}`, {
       method: "PATCH",
@@ -29,7 +16,7 @@ export async function setProjectIconFromTitle(pageId: string, title: string): Pr
       body: JSON.stringify({
         icon: {
           type: "external",
-          external: { url: imageUrl }
+          external: { url: DEFAULT_IMAGE }
         }
       })
     });
@@ -40,9 +27,9 @@ export async function setProjectIconFromTitle(pageId: string, title: string): Pr
       throw new Error("Icon update failed");
     }
 
-    if (DEBUG) console.log("✅ Page icon successfully set to:", imageUrl);
+    if (DEBUG) console.log("✅ Default icon applied to page.");
   } catch (err) {
-    console.error("🔥 Error setting project icon:", err?.message || err);
+    console.error("🔥 Error setting icon:", err?.message || err);
     if (err?.stack) console.error(err.stack);
   }
 }
