@@ -1,5 +1,5 @@
 import { DEBUG } from "./config.ts";
-import { setProjectIconFromTitle } from "./set_task_icon.ts";
+import { setProjectIcon } from "./set_task_icon.ts";
 
 Deno.serve(async (req) => {
   try {
@@ -13,7 +13,7 @@ Deno.serve(async (req) => {
 
     if (DEBUG) console.log("📩 Webhook received for page ID:", pageId);
 
-    await setProjectIconFromTitle(pageId);
+    await setProjectIcon(pageId);
 
     return new Response("✅ Icon updated, and Notion update is complete", { status: 200 });
   } catch (e) {
